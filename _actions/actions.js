@@ -67,10 +67,6 @@ export function fetchDataFinished(response) {
 	let formattedForecast = {};
 
 	forecast.map(i => {
-		let formatForecastItem = null;
-		let currentIDate = new Date(i.dt_txt);
-		let time = currentIDate.getTime();
-		let date = currentIDate;
 		let mainData = {
 			grnd_level: i.main.grnd_level,
 			humidity: i.main.humidity,
@@ -84,18 +80,18 @@ export function fetchDataFinished(response) {
 		let image = i.weather[0].icon;
 		let type = i.weather[0].main;
 		let wind = {speed: i.wind.speed, deg: i.wind.deg};
-		let key = new Date(i.dt_txt).toJSON();
+		let key = i.dt_txt;
 		let pressure = +i.main.pressure * 0.750062;
-		formattedForecast[key] = {time, date, mainData, pressure, image, type, wind};
+		formattedForecast[key] = {date: i.dt_txt, mainData, pressure, image, type, wind};
 	});
 
 	let elIndex = 0;
 	let now = new Date().getTime();
-	let currentWeatherIndex = Object.keys(formattedForecast).map( (i, index) => {
-		let current = new Date(i).getTime();
+	Object.keys(formattedForecast).map( (i, index) => {
+		let current = new Date(i).getTime() + '';
 		// hour = 3600 ms
 		if (+now  > +current) {
-			elIndex = new Date(current).toJSON();
+			elIndex = new Date(current).toString();
 		}
 	});
 

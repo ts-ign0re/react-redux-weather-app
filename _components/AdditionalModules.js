@@ -38,11 +38,9 @@ export class ListView extends Component {
 export class ListItem extends Component {
 	constructor(props) {
 		super();
-		var parseDate = moment(props.element.date);
-
 		this.state = {
-			date: parseDate.format('dddd'),
-			time: parseDate.format('HH:mm')
+			date: moment(props.element.date).format('dddd'),
+			time: moment(props.element.date).format('HH:mm')
 		}
 	}
 	render() {

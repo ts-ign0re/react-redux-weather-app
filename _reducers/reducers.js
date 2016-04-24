@@ -49,7 +49,6 @@ export default function reducer(state = initialState, action) {
 			country: action.response.city.country,
 			forecast: action.response.list,
 			formattedWeatherData: action.formatWeatherData,
-			currentHour: new Date().getTime().toString() + '',
 			currentWeatherIndex: action.currentWeatherIndex,
 			isLoading: false
 		}
